@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  frontend:
+    # Nome do serviço, que também servirá como nome de host na rede Docker
+    container_name: my-frontend-app
+    # Constrói a imagem a partir do Dockerfile na pasta 'ProjetoKdd'
+    build:
+      context: ./ProjetoKdd
+      # Nomear o Dockerfile de forma específica (por exemplo, Dockerfile.frontend)
+      # é uma boa prática quando você tem vários Dockerfiles no projeto.
+      # Assim, o 'docker-compose' sabe exatamente qual arquivo usar para este serviço.
+      dockerfile: Dockerfile.frontend
+    # Mapeia a porta 80 do contêiner para a porta 80 do seu host.
+    # Você pode mudar a porta do host, por exemplo, '8080:80'
+    ports:
+      - "80:80"
+    # Reinicia o contêiner automaticamente em caso de falha
+    restart: always
+
+  bot:
+    # Nome do serviço
+    container_name: my-python-bot
+    # Constrói a imagem a partir do Dockerfile na pasta 'telegram-bot'
+    build:
+      context: ./Telegram-bot
+      dockerfile: Dockerfile.bot
+    # ports:
+    #   - "5000:5000"
+    # Reinicia o contêiner automaticamente em caso de falha
+    restart: always
+    depends_on:
+      - frontend

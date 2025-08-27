@@ -1,0 +1,6 @@
+Esta é nossa API do Hugging Face: https://huggingface.co/spaces/AndRSantos/ProjetoPredicaoDeCargosFinal
+
+Link do COLAB:
+https://colab.research.google.com/drive/1bxI9NqKKRnU_H1xRSlvH2Te6NKRBAWjL#scrollTo=Ottbvoamvpsd
+
+Link da nossa página de frontend(hospedada no netifly):https://preditordecargos.netlify.app/

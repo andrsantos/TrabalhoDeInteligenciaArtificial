@@ -1,0 +1,285 @@
+{
+  "name": "ProcessoKDD",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Acessa o objeto JSON completo enviado pelo seu script Python\nconst incomingData = $json.body;\n\n// Retorna os dados para os próximos nós\nreturn [{\n  json: {\n    // Você pode acessar as propriedades diretamente aqui\n    inputs: incomingData.inputs,\n    chatId: incomingData.chatId\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        16
+      ],
+      "id": "839f9a37-5984-41de-ac96-198d217542ad",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://andrsantos-projetopredicaodecargosfinal.hf.space/predict",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "inputs",
+              "value": "={{ $json.inputs }}"
+            },
+            {
+              "name": "chatId",
+              "value": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        16
+      ],
+      "id": "1375ad5e-4840-4bc8-8f35-3560162ae0fd",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=O cargo previsto para você é: {{ $json.predicted_cargo }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        864,
+        16
+      ],
+      "id": "591c7a2c-6224-40ab-a5bc-b816d6bfddb0",
+      "name": "Send a text message",
+      "webhookId": "20dc1b3d-8c59-41f4-a82c-36cdfef64a66",
+      "credentials": {
+        "telegramApi": {
+          "id": "9a7c7gitHBNZVdoW",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b083795b-3671-4ec5-92d3-0e4952638003",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4ab98ba4-0dff-4d8e-a742-3b9538f8ad70",
+      "name": "Webhook",
+      "webhookId": "b083795b-3671-4ec5-92d3-0e4952638003"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ec02277-ed77-49f2-9255-791e9dc05132",
+              "leftValue": "={{ $json.body.chatId }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b56bcac4-fd5b-44b3-bf53-cc161d1699ee",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Acessa o objeto JSON completo enviado pelo seu script Python\nconst incomingData = $json.body;\n\n// Retorna os dados para os próximos nós\nreturn [{\n  json: {\n    // Você pode acessar as propriedades diretamente aqui\n    inputs: incomingData.inputs,\n    chatId: incomingData.chatId\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -160
+      ],
+      "id": "52abf7ed-649c-48e0-a110-e7e9719a9ffb",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://andrsantos-projetopredicaodecargosfinal.hf.space/predict",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "inputs",
+              "value": "={{ $json.inputs }}"
+            },
+            {
+              "name": "chatId",
+              "value": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        -160
+      ],
+      "id": "e26b1535-ba66-491e-b766-ad2050119602",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        864,
+        -160
+      ],
+      "id": "dd3d8f78-a6d7-4f66-9824-3a9b6e7567e8",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Solicitação processada e mensagem enviada ao Telegram.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1072,
+        16
+      ],
+      "id": "03e8d50f-2659-439a-9df6-19da9dbf6c8c",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "20d610ff-0832-4801-9586-0869db533824",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f24f2de541a763bc527e558323fc8330cdbefe688a87dfe7a3650d65f0a2510b"
+  },
+  "id": "CeTuNnysbl4g6FLG",
+  "tags": []
+}

@@ -1,0 +1,12 @@
+# Usa a imagem oficial do Nginx para servir arquivos estáticos
+FROM nginx:alpine
+
+# Copia os arquivos de build do seu projeto Vue para o diretório de serviço do Nginx
+# Certifique-se de que o seu projeto Vue está construído e que a pasta 'dist' existe
+COPY dist/ /usr/share/nginx/html
+
+# Expõe a porta 80, que é a porta padrão do Nginx
+EXPOSE 80
+
+# Comando padrão do Nginx para iniciar o servidor
+CMD ["nginx", "-g", "daemon off;"]
