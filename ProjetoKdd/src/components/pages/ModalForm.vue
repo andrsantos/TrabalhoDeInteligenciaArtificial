@@ -426,7 +426,7 @@ const submitForm = async () => {
   margin-bottom: 0.5rem;
 }
 
-/* NOVOS ESTILOS PARA A ANIMAÇÃO DE CARREGAMENTO */
+/* ESTILOS PARA A ANIMAÇÃO DE CARREGAMENTO */
 .loading-state {
   display: flex;
   flex-direction: column;
@@ -451,7 +451,7 @@ const submitForm = async () => {
   100% { transform: rotate(360deg); }
 }
 
-/* NOVO ESTILO PARA A MENSAGEM DE ERRO */
+/* ESTILO PARA A MENSAGEM DE ERRO */
 .error-message {
   color: #ff6b6b; /* Cor vermelha para o erro */
   font-size: 0.8rem;

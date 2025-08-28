@@ -181,7 +181,7 @@ const cargosInfo = {
   line-height: 1.4;
 }
 
-/* Reajuste para o botão secundário para não atrapalhar a estilização existente */
+/* Ajuste para o botão secundário para não atrapalhar a estilização existente */
 .card-button-secondary {
   color: var(--color-link) !important;
   background: transparent !important;

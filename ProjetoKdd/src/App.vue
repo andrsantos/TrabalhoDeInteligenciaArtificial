@@ -144,7 +144,7 @@ body {
 .main-content {
   flex-grow: 1;
   padding: 20px;
-  background-image: url('./assets/ia-background.jpg'); /* Certifique-se de que o nome do arquivo corresponde ao que você salvou */
+  background-image: url('./assets/ia-background.jpg'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
