@@ -7,12 +7,8 @@ services:
     # Constrói a imagem a partir do Dockerfile na pasta 'ProjetoKdd'
     build:
       context: ./ProjetoKdd
-      # Nomear o Dockerfile de forma específica (por exemplo, Dockerfile.frontend)
-      # é uma boa prática quando você tem vários Dockerfiles no projeto.
-      # Assim, o 'docker-compose' sabe exatamente qual arquivo usar para este serviço.
       dockerfile: Dockerfile.frontend
     # Mapeia a porta 80 do contêiner para a porta 80 do seu host.
-    # Você pode mudar a porta do host, por exemplo, '8080:80'
     ports:
       - "80:80"
     # Reinicia o contêiner automaticamente em caso de falha
