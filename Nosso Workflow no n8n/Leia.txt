@@ -1,0 +1,12 @@
+Observações: o nosso fluxo do n8n está hospedado na cloud. O prazo para expirar é de 11 dias a contar do dia da entrega do projeto. Caso o professor não consiga testar o trabalho antes, basta upar o arquivo do workflow que deixamos na pasta "Nosso Workflow" e upar no seu próprio n8n. Feito isso, será necessário ir até o arquivo bot.py, e na linha 20, trocar a url: HF_API_URL = "https://andreyrsantos.app.n8n.cloud/webhook/b083795b-3671-4ec5-92d3-0e4952638003" atual para a url de produção do seu próprio n8n. Da mesma forma, navegue até a linha 263 do componente ModalForm.vue, do projeto vue, que está na pasta ProjetoKdd, e no seguinte bloco de código:
+
+  try {
+    const response = await fetch('https://andreyrsantos.app.n8n.cloud/webhook/b083795b-3671-4ec5-92d3-0e4952638003', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestPayload)
+    });
+
+substitua a url atual pela url correspondente ao seu workspace do n8n. Feita essa atualização, em caso de prazo expirado, a aplicação funcionará normalmente.
